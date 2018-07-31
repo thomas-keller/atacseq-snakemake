@@ -10,7 +10,7 @@ PATTERN_R2 = '{sample}.2_val_2.fq.gz'
 
 rule all:
     input:
-        "{sample}.txt"
+        expand("{sample}.txt",sample=SAMPLES)
 
 rule clean_fastq:
     input:
