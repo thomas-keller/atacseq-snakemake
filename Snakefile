@@ -13,8 +13,8 @@ PATTERN_R2 = '{sample}.2_val_2.fq.gz'
 rule clean_fastq:
     input:
         genome=GENOME,
-        fwd=join("/work/t/tekeller/atac_toxo","{wildcards.run}","{wildcards.sample}","1_val_1.fq.gz"),
-        rev=join("/work/t/tekeller/atac_toxo","{wildcards.run}","{wildcards.sample}","2_val_2.fq.gz")
+        fwd="/work/t/tekeller/atac_toxo/{run}/{sample}.1_val_1.fq.gz",
+        rev="/work/t/tekeller/atac_toxo/{run}/{sample}.2_val_2.fq.gz"
     output:
        "{sample.txt}"
     shell:
