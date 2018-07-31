@@ -8,9 +8,7 @@ PATTERN_R2 = '{sample}.2_val_2.fq.gz'
 
 
 
-rule all:
-    input:
-        "test.txt"
+
 
 rule clean_fastq:
     input:
