@@ -10,15 +10,15 @@ PATTERN_R2 = '{sample}.2_val_2.fq.gz'
 
 rule all:
     input:
-        expand('/work/t/tekeller/atac_toxo/{run}/{sample}.1_val_1.fq.gz',run=RUN,samples=SAMPLES )
+        expand('/work/t/tekeller/atac_toxo/{run}/{sample}.1_val_1.fq.gz',run=RUN,sample=SAMPLES )
 
 rule clean_fastq:
     input:
         genome=GENOME
-        fwd=join('/work/t/tekeller/atac_toxo',"{wildcards.run}","{wildcards.sample}","1_val_1.fq.gz")
-        rev=join('/work/t/tekeller/atac_toxo',"{wildcards.run}","{wildcards.sample}","2_val_2.fq.gz")
+        fwd=join("/work/t/tekeller/atac_toxo","{wildcards.run}","{wildcards.sample}","1_val_1.fq.gz")
+        rev=join("/work/t/tekeller/atac_toxo","{wildcards.run}","{wildcards.sample}","2_val_2.fq.gz")
     output:
-        {sample.txt}
+       "{sample.txt}"
     shell:
         """
         echo {input.genome} {input.fwd} {input.rev} > {output}
