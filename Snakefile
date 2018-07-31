@@ -15,8 +15,8 @@ rule all:
 rule clean_fastq:
     input:
         genome=GENOME
-        fwd=join('/work/t/tekeller/atac_toxo',"{wildcards.run},"{wildcards.sample}","1_val_1.fq.gz")
-        rev=join('/work/t/tekeller/atac_toxo',"{wildcards.run},"{wildcards.sample}","2_val_2.fq.gz")
+        fwd=join('/work/t/tekeller/atac_toxo',"{wildcards.run}","{wildcards.sample}","1_val_1.fq.gz")
+        rev=join('/work/t/tekeller/atac_toxo',"{wildcards.run}","{wildcards.sample}","2_val_2.fq.gz")
     output:
         {sample.txt}
     shell:
