@@ -7,9 +7,6 @@ PATTERN_R1 = '{sample}.1_val_1.fq.gz'
 PATTERN_R2 = '{sample}.2_val_2.fq.gz'
 
 
-NB_SAMPLES = len(SAMPLES)
-for smp in SAMPLES:
-    message("sample"+ smp " will be processed")
 
 rule all:
     input:
