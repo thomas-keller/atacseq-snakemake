@@ -10,7 +10,7 @@ PATTERN_R2 = '{sample}.2_val_2.fq.gz'
 
 rule all:
     input:
-        expand('/work/t/tekeller/atac_toxo/{run}/{sample}.1_val_1.fq.gz,run=RUN,samples=SAMPLES )
+        expand('/work/t/tekeller/atac_toxo/{run}/{sample}.1_val_1.fq.gz',run=RUN,samples=SAMPLES )
 
 rule clean_fastq:
     input:
