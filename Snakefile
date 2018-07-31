@@ -16,7 +16,7 @@ rule clean_fastq:
         fwd=expand("/work/t/tekeller/atac_toxo/{run}/{sample}.1_val_1.fq.gz",run=RUN,sample=SAMPLES),
         rev=expand("/work/t/tekeller/atac_toxo/{run}/{sample}.2_val_2.fq.gz",run=RUN,sample=SAMPLES)
     output:
-       "{sample.txt}"
+       "{sample}.txt"
     shell:
         """
         echo {input.genome} {input.fwd} {input.rev} > {output}
