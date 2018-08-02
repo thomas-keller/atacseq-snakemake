@@ -43,6 +43,7 @@ with open(args.meta, "r") as f:
         if fastq_full_path:
             FILES[fastq_name][strain_name][replicate].extend(fastq_full_path)
 
+print(fastq_paths)
 print(fastq_full_path)
 print(FILES)
 
