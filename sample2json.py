@@ -27,7 +27,7 @@ for root, dirs, files in os.walk(args.fastq_dir):
             full_path = join(root, file)
 fastq_paths.append(full_path)
 
-FILES = defaultdict(lambda: defaultdict(list))
+FILES = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
 
 with open(args.meta, "r") as f:
     reader = csv.reader(f, delimiter = "\t")
