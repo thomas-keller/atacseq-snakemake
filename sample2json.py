@@ -27,7 +27,7 @@ for root, dirs, files in os.walk(args.fastq_dir):
             full_path = join(root, file)
             fastq_paths.append(full_path)
 
-FILES = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+FILES = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
 
 with open(args.meta, "r") as f:
     reader = csv.reader(f, delimiter = "\t")
@@ -35,17 +35,18 @@ with open(args.meta, "r") as f:
     header = next(reader)
     for row in reader:
         fastq_name = row[0].strip()
-        strain_name = row[1].strip()
+        batch = row[1].strip()
+        strain_name = row[2].strip()
         
-        replicate = row[2].strip()
+        replicate = row[3].strip()
         ## now just assume the file name in the metafile contained in the fastq file path
         fastq_full_path = [x for x in fastq_paths if fastq_name in x]
         if fastq_full_path:
-            FILES[fastq_name][strain_name][replicate].extend(fastq_full_path)
+            FILES[fastq_name][batch][strain_name][replicate].extend(fastq_full_path)
 
-print(fastq_paths)
-print(fastq_full_path)
-print(FILES)
+#print(fastq_paths)
+#print(fastq_full_path)
+#print(FILES)
 
 print()
 sample_num = len(FILES.keys())

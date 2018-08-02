@@ -1,11 +1,14 @@
 from os.path import join
 GENOME='~/toxo_kim/genomes/hg38.fa'
 fastq_dirs='/work/t/tekeller/atac_toxo'
-RUN,SAMPLES=glob_wildcards("/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz")
 
-PATTERN_R1 = '{sample}.1_val_1.fq.gz'
-PATTERN_R2 = '{sample}.2_val_2.fq.gz'
 
+FILES = json.load(open(config['SAMPLES_JSON']))
+
+import csv
+import os
+
+SAMPLES = sorted(FILES.keys())
 
 
 rule all:
