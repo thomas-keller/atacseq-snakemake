@@ -25,7 +25,7 @@ for root, dirs, files in os.walk(args.fastq_dir):
     for file in files:
         if file.endswith("fq.gz"):
             full_path = join(root, file)
-fastq_paths.append(full_path)
+            fastq_paths.append(full_path)
 
 FILES = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
 
