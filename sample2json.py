@@ -41,13 +41,14 @@ with open(args.meta, "r") as f:
         ## now just assume the file name in the metafile contained in the fastq file path
         fastq_full_path = [x for x in fastq_paths if fastq_name in x]
         if fastq_full_path:
-            FILES[fastq_name][strain_name].extend(replicate)
+            FILES[fastq_name][strain_name][replicate].extend(fastq_full_path)
 
-'''
+
 print()
 sample_num = len(FILES.keys())
 print ("total {} unique samples will be processed".format(sample_num))
 print ("------------------------------------------")
+'''
 for fastq_name in sorted(FILES.keys()):
     for strain_name in FILES[fastq_name]:
         fastq_file = "".join(FILES[fastq_name][strain_name])
@@ -58,7 +59,6 @@ for sample in FILES.keys():
 print ("------------------------------------------")
 print("check the samples.json file for fastqs belong to each sample")
 print()
-
+'''
 js = json.dumps(FILES, indent = 4, sort_keys=True)
 open('samples.json', 'w').writelines(js)
-'''
