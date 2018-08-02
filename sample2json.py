@@ -23,7 +23,7 @@ fastq_paths = []
 
 for root, dirs, files in os.walk(args.fastq_dir):
     for file in files:
-        if file.endswith("fastq.gz"):
+        if file.endswith("fq.gz"):
             full_path = join(root, file)
 fastq_paths.append(full_path)
 
