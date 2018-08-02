@@ -35,13 +35,13 @@ with open(args.meta, "r") as f:
     header = next(reader)
     for row in reader:
         fastq_name = row[0].strip()
-    	strain_name = row[1].strip()
-    	
-    	replicate = row[2].strip()
-    	## now just assume the file name in the metafile contained in the fastq file path
-    	fastq_full_path = [x for x in fastq_paths if fastq_name in x]
-    	if fastq_full_path:
-    		FILES[fastq_name][strain_name].extend(replicate)
+        strain_name = row[1].strip()
+        
+        replicate = row[2].strip()
+        ## now just assume the file name in the metafile contained in the fastq file path
+        fastq_full_path = [x for x in fastq_paths if fastq_name in x]
+        if fastq_full_path:
+            FILES[fastq_name][strain_name].extend(replicate)
 
 '''
 print()
@@ -49,12 +49,12 @@ sample_num = len(FILES.keys())
 print ("total {} unique samples will be processed".format(sample_num))
 print ("------------------------------------------")
 for fastq_name in sorted(FILES.keys()):
-	for strain_name in FILES[fastq_name]:
-		fastq_file = "".join(FILES[fastq_name][strain_name])
-		print("sample {sample_name}'s {sample_type} fastq path is {fastq_file}".format(sample_name = sample_name, sample_type = sample_type, fastq_file = fastq_file))
+    for strain_name in FILES[fastq_name]:
+        fastq_file = "".join(FILES[fastq_name][strain_name])
+        print("sample {sample_name}'s {sample_type} fastq path is {fastq_file}".format(sample_name = sample_name, sample_type = sample_type, fastq_file = fastq_file))
 print ("------------------------------------------")
 for sample in FILES.keys():
-	print ("{sample} has {n} marks".format(sample = sample, n = len(FILES[sample])))
+    print ("{sample} has {n} marks".format(sample = sample, n = len(FILES[sample])))
 print ("------------------------------------------")
 print("check the samples.json file for fastqs belong to each sample")
 print()
