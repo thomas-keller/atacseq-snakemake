@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-#based
+#ex
+#python sample2json.py --fastq_dir /work/t/tekeller/atac_toxo/ --meta ./samples.tsv
 import json
 import os
 import csv
