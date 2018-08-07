@@ -49,8 +49,8 @@ rule clean_fastq:
     input:
         genome=GENOME,
         toxo=TOXO,
-        fwd="/work/t/tekeller/atac_toxo/{cases}.1_val_1.fq.gz",
-        rev="/work/t/tekeller/atac_toxo/{cases}.2_val_2.fq.gz"
+        fwd=expand("/work/t/tekeller/atac_toxo/{cases}.1_val_1.fq.gz",cases=CASES),
+        rev=expand("/work/t/tekeller/atac_toxo/{cases}.2_val_2.fq.gz",cases=CASES)
     output:
        hum_cl=[join(dirname(case),basename(case),'_clean_','hg38','.fq') for case in CASES],
        tox_cl=[join(dirname(case),basename(case),'_clean_','ToxoDB-38_TgondiiME49_Genome','.fq') for case in CASES]
