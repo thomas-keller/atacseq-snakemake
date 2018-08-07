@@ -41,8 +41,8 @@ def rstrip(text, suffix):
 
 rule all:
     input:
-        hum_cl=join(dirname(CASES),'clean_','hg38','.fq'),
-        tox_cl=join(dirname(CASES),'clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
+        join(dirname(CASES),'clean_','hg38','.fq'),
+        join(dirname(CASES),'clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
 rule clean_fastq:
     input:
         genome=GENOME,
