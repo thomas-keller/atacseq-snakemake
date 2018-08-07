@@ -23,8 +23,8 @@ SAMPLES = sorted(FILES.keys())
 #        MARK_SAMPLES.append(sample + ";" + sample_type)
 
 CONTROL = config["control"]
-CONTROLS = [sample for sample if CONTROL in sample]
-CASES = [sample for sample if CONTROL not in sample]
+CONTROLS = [sample for sample in SAMPLES if CONTROL in sample]
+CASES = [sample for sample in SAMPLES if CONTROL not in sample]
 
 
 # Functions -------------------------------------------------------------------
