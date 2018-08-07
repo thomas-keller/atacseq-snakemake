@@ -20,7 +20,7 @@ SAMPLES = sorted(FILES.keys())
 MARK_SAMPLES = []
 for sample in SAMPLES:
     for sample_type in FILES[sample].keys():
-MARK_SAMPLES.append(sample + "_" + sample_type)
+        MARK_SAMPLES.append(sample + "_" + sample_type)
 
 CONTROL = config["control"]
 CONTROLS = [sample for sample in MARK_SAMPLES if CONTROL in sample]
