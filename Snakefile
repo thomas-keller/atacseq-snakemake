@@ -39,10 +39,12 @@ def rstrip(text, suffix):
 
 # Rules -----------------------------------------------------------------------
 
+print(CASES)
 rule all:
     input:
         join(dirname(CASES),'clean_','hg38','.fq'),
         join(dirname(CASES),'clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
+
 rule clean_fastq:
     input:
         genome=GENOME,
