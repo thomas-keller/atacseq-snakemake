@@ -5,6 +5,8 @@ from subprocess import check_output
 import csv
 
 # Globals ---------------------------------------------------------------------
+configfile: "config.yml"
+
 GENOME='~/toxo_kim/genomes/hg38.fa'
 TOXO='~/toxo_kim/genomes/ToxoDB-38_TgondiiME49_Genome.fasta'
 fastq_dirs='/work/t/tekeller/atac_toxo'
