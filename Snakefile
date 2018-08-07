@@ -33,7 +33,7 @@ def rstrip(text, suffix):
     # Remove a suffix from a string.
     if not text.endswith(suffix):
         return text
-return text[:len(text)-len(suffix)]
+    return text[:len(text)-len(suffix)]
 
 # Rules -----------------------------------------------------------------------
 
