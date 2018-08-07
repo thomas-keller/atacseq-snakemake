@@ -17,14 +17,14 @@ FILES = json.load(open(config['SAMPLES_JSON']))
 SAMPLES = sorted(FILES.keys())
 
 ## list all samples by sample_name and sample_type
-MARK_SAMPLES = []
-for sample in SAMPLES:
-    for sample_type in FILES[sample].keys():
-        MARK_SAMPLES.append(sample + "_" + sample_type)
+#MARK_SAMPLES = []
+#for sample in SAMPLES:
+#    for sample_type in FILES[sample].keys():
+#        MARK_SAMPLES.append(sample + ";" + sample_type)
 
 CONTROL = config["control"]
-CONTROLS = [sample for sample in MARK_SAMPLES if CONTROL in sample]
-CASES = [sample for sample in MARK_SAMPLES if CONTROL not in sample]
+CONTROLS = [sample for sample if CONTROL in sample]
+CASES = [sample for sample if CONTROL not in sample]
 
 
 # Functions -------------------------------------------------------------------
