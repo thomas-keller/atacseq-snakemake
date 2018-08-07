@@ -42,8 +42,8 @@ def rstrip(text, suffix):
 print(CASES)
 rule all:
     input:
-        join(dirname(CASES),'clean_','hg38','.fq'),
-        join(dirname(CASES),'clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
+        join(dirname(CASES[0]),basename(CASES[0]),'_clean_','hg38','.fq'),
+        join(dirname(CASES[0]),basename(CASES[0]),'_clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
 
 rule clean_fastq:
     input:
@@ -52,8 +52,8 @@ rule clean_fastq:
         fwd="/work/t/tekeller/atac_toxo/{cases}.1_val_1.fq.gz",
         rev="/work/t/tekeller/atac_toxo/{cases}.2_val_2.fq.gz"
     output:
-       hum_cl=join(dirname(SAMPLES),'clean_','hg38','.fq'),
-       tox_cl=join(dirname(SAMPLES),'clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
+       hum_cl=[join(dirname(case),basename(case),'_clean_','hg38','.fq') for case in CASES],
+       tox_cl=[join(dirname(case),basename(case),'_clean_','ToxoDB-38_TgondiiME49_Genome','.fq') for case in CASES]
     shell:
         """
         bbsplit.sh in={input.fwd} in2={input.rev} ref={input.genome},{input.toxo} basename={wildcards.sample}_clean_%.fq
