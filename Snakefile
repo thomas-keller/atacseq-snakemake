@@ -48,7 +48,7 @@ rule clean_fastq:
         fwd="/work/t/tekeller/atac_toxo/{cases}.1_val_1.fq.gz",
         rev="/work/t/tekeller/atac_toxo/{cases}.2_val_2.fq.gz"
     output:
-       hum_cl=join(dirname(SAMPLES),'clean_','hg38','.fq')
+       hum_cl=join(dirname(SAMPLES),'clean_','hg38','.fq'),
        tox_cl=join(dirname(SAMPLES),'clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
     shell:
         """
