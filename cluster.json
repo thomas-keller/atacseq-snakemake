@@ -1,109 +1,16 @@
 {
     "__default__" :
     {
-        "time" : "00:15",
-        "cpu": 1,
-        "email" : "tekeller@usf.edu",
-        "EmailNotice": "N",
-        "MaxMem": 16384,
-        "queue" : "circe"
+        "time" : "03:00:00",
+        "partition" : "circe",
+        "n": "8",
+        "mem":"10G",
+        "jobname":"Preprocess.{rule}.{wildcards}",
+        "output" : "logs/cluster/{rule}.{wildcards}.out"
     },
-    "merge_fastqs" :
+    "clean_fastq" :
     {
-        "time" : "0:30",
-        "cpu" : 1
-    },
-    "fastqc":
-    {
-        "time" : "1:00",
-        "cpu" : 1
-    },
-    "clean_fastq":
-    {
-        "time" : "1:00",
-        "cpu" : 6
-    },
-    "align":
-    {
-        "time" : "04:00",
-        "MaxMem": 32768,
-        "cpu" : 5,
-        "queue" : "medium"
-    },
-    "sort_bam":
-    {
-        "time" : "01:00",
-        "MaxMem": 32768,
-        "cpu" : 5
-    },
-    "index_bam":
-    {
-        "time" : "00:20"
-    },
-    "flagstat_bam":
-    {
-        "time" : "00:30"
-    },
-    "down_sample":
-    {
-        "time" : "01:00",
-        "cpu" : 5
-    },
-    "phantom_peak_qual":
-    {
-        "time": "01:00",
-	    "cpu" : 4
-    },
-    "call_peaks_macs1":
-    {
-        "time" : "02:30",
-        "queue" : "circe"
-    },
-    "call_peaks_macs2":
-    {   "time" : "02:00",
-        "queue" : "circe"
-    },
-    "make_bigwigs":
-    {
-        "time" : "03:00",
-        "MaxMem": 32768,
-        "cpu" : 5,
-        "queue" : "circe"
-    },
-    "make_inputSubtract_bigwigs":
-    {
-        "time" : "03:00",
-        "MaxMem": 32768,
-        "cpu" : 5,
-        "queue" : "circe"
-    },
-    "multiQC" :
-    {
-        "time" : "00:10"
-    },
-    "bam2bed" :
-    {
-        "time": "01:00"
-    },
-    "make_table":
-    {
-        "time": "00:10"
-    },
-    "chromHmm_binarize":
-    {
-        "time": "4:00",
-        "queue" : "medium"
-    },
-    "chromHmm_learn":
-    {
-        "time": "24:00",
-        "cpu": 10,
-        "queue": "medium"
-    },
-    "superEnhancer":
-    {
-        "time": "8:00",
-        "cpu": 4,
-        "queue" : "medium"
+        "time" : "04:00:00",
+        "mem":"16G"
     }
 }
