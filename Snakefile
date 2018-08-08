@@ -43,8 +43,8 @@ print(CASES)
 rule all:
     input:
         expand("work/t/tekeller/atac_toxo/01cln/{case}_clean_hg38.fq",case=CASES),
-        expand("work/t/tekeller/atac_toxo/01cln/{case}_clean_",case=CASES)
-ToxoDB-38_TgondiiME49_Genome.fq
+        expand("work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq",case=CASES)
+
 rule clean_fastq:
     input:
         genome=GENOME,
