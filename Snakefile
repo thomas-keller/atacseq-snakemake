@@ -42,20 +42,20 @@ def rstrip(text, suffix):
 print(CASES)
 rule all:
     input:
-        join(dirname(CASES[0]),basename(CASES[0]),'_clean_','hg38','.fq'),
-        join(dirname(CASES[0]),basename(CASES[0]),'_clean_','ToxoDB-38_TgondiiME49_Genome','.fq')
-
+        expand("work/t/tekeller/atac_toxo/01cln/{case}_clean_hg38.fq",case=CASES),
+        expand("work/t/tekeller/atac_toxo/01cln/{case}_clean_",case=CASES)
+ToxoDB-38_TgondiiME49_Genome.fq
 rule clean_fastq:
     input:
         genome=GENOME,
         toxo=TOXO,
-        fwd=expand("/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=CASES),
-        rev=expand("/work/t/tekeller/atac_toxo/{sample}.2_val_2.fq.gz",sample=CASES)
+        fwd="/work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz",
+        rev="/work/t/tekeller/atac_toxo/{case}.2_val_2.fq.gz"
     output:
-       hum_cl=[join(dirname(case),basename(case),'_clean_','hg38','.fq') for case in CASES],
-       tox_cl=[join(dirname(case),basename(case),'_clean_','ToxoDB-38_TgondiiME49_Genome','.fq') for case in CASES]
+       hum_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_hg38.fq",
+       tox_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
     shell:
         """
-        bbsplit.sh in={input.fwd} in2={input.rev} ref={input.genome},{input.toxo} basename={wildcards.sample}_clean_%.fq
+        bbsplit.sh in={input.fwd} in2={input.rev} ref={input.genome},{input.toxo} basename=01cln/{wildcards.sample}_clean_%.fq
         """
 
