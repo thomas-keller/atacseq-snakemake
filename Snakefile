@@ -29,6 +29,9 @@ CONTROLS = [sample for sample in SAMPLES if CONTROL in sample]
 CASES = [sample for sample in SAMPLES if CONTROL not in sample]
 
 
+logdir = os.path.join(os.getcwd(), "logs/slurm")
+os.makedirs(logdir, exist_ok=True)
+
 # Functions -------------------------------------------------------------------
 
 def rstrip(text, suffix):

@@ -6,7 +6,7 @@
         "n": "8",
         "mem":"10G",
         "jobname":"Preprocess.{rule}.{wildcards}",
-        "output" : "logs/cluster/{rule}.{wildcards}.out"
+        "output" : "logs/slurm/{rule}.{wildcards}.out"
     },
     "clean_fastq" :
     {
