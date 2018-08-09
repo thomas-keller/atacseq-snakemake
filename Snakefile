@@ -59,6 +59,6 @@ rule clean_fastq:
        tox_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
     shell:
         """
-        bbsplit.sh in={input.fwd} in2={input.rev} ref={input.genome},{input.toxo} basename=01cln/{wildcards.case}_clean_%.fq
+        bbsplit.sh in={input.fwd} in2={input.rev} ref={input.genome},{input.toxo} basename=/work/t/tekeller/atac_toxo/01cln/{wildcards.case}_clean_%.fq
         """
 
