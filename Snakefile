@@ -49,7 +49,6 @@ rule all:
         expand("/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq",case=CASES)
 
 rule clean_fastq:
-    threads:12
     input:
         genome=GENOME,
         toxo=TOXO,
@@ -58,6 +57,7 @@ rule clean_fastq:
     output:
        hum_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_hg38.fq",
        tox_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
+    threads: 12
     shell:
         """
         bbsplit.sh -Xmx44g -t=12 in={input.fwd} in2={input.rev} basename=/work/t/tekeller/atac_toxo/01cln/{wildcards.case}_clean_%.fq
