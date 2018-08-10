@@ -23,16 +23,16 @@ fi
 # launch snakemake to run jobs on UAB CHEAHA via SLURM
 #
 SM_PARAMS="job-name ntasks partition time mail-user mail-type error output"
-SM_ARGS="--cpus-per-task {threads} --mem {cluster.mem}"
+SM_ARGS="--cpus-per-task={threads} --mem={cluster.mem}"
 for P in ${SM_PARAMS}; do SM_ARGS="$SM_ARGS --$P={cluster.$P}"; done
 echo "SM_ARGS: ${SM_ARGS}"
 
 # our SLURM error/output paths expect a logs/ subdir in PWD
 mkdir -p logs
 
-snakemake \
+snakemake --unlock \
     $* \
-     --latency-wait 30 \
+     --latency-wait 120 \
     -j 999 \
     --cluster-config cluster.json \
 --cluster "sbatch $SM_ARGS"
