@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #ex
-#python sample2json.py --fastq_dir /work/t/tekeller/atac_toxo/ --meta ./samples.tsv
+#python sample2json.py --fastq_dir /work/t/tekeller/atac_toxo/ --meta ~/atacseq-snakemake/samples.tsv
 import json
 import os
 import csv
