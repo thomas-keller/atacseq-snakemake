@@ -49,6 +49,7 @@ rule all:
         expand("/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq",case=CASES)
 
 rule clean_fastq:
+    threads:12
     input:
         genome=GENOME,
         toxo=TOXO,
@@ -59,6 +60,6 @@ rule clean_fastq:
        tox_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
     shell:
         """
-        bbsplit.sh -Xmx22g in={input.fwd} in2={input.rev} ref={input.genome},{input.toxo} basename=/work/t/tekeller/atac_toxo/01cln/{wildcards.case}_clean_%.fq
+        bbsplit.sh -Xmx44g -t=12 in={input.fwd} in2={input.rev} basename=/work/t/tekeller/atac_toxo/01cln/{wildcards.case}_clean_%.fq
         """
 
