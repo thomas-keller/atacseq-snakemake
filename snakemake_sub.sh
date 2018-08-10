@@ -1,7 +1,7 @@
 #! /bin/bash
 # this file is snakemake_sub.sh
 #submit with
-# sbatch --cpus-per-task=2 --mem=8g snakemake.sh
+# sbatch --cpus-per-task=2 --mem=8g snakemake_sub.sh
 #taken from biowulf example
 #https://hpc.nih.gov/apps/snakemake.html
 
