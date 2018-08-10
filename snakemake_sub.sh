@@ -12,6 +12,6 @@ snakemake -pr --unlock --keep-going --local-cores $SLURM_CPUS_PER_TASK \
              --jobs 10 --cluster-config cluster.json --cluster "$sbcmd" \
              --latency-wait 120 all
 
-snakemake -pr --unlock --keep-going --local-cores $SLURM_CPUS_PER_TASK \
+snakemake -pr --keep-going --local-cores $SLURM_CPUS_PER_TASK \
     --jobs 10 --cluster-config cluster.json --cluster "$sbcmd" \
     --latency-wait 120 all
