@@ -1,16 +1,14 @@
 {
-"__default__" : {
-    "job-name"       : "SM.{rule}",
-    "partition"      : "circe",
-    "time"           : "04:00:00",
-    "ntasks"         : 1,
-    "cpus-per-task"  : 1,
-    "mem" : "8G",
-    "output"         : "logs/%j.%N.out.txt",
-    "error"          : "logs/%j.%N.err.txt",
-    "mail-user"      : "tekeller@usf.edu",
-    "mail-type"      : "ALL"
-},
+    "__default__" :
+    {
+        "time" : "03:00:00",
+        "partition" : "circe",
+        "ntasks": 1,
+        "cpus-per-tasks": 1,
+        "mem":"10G",
+        "jobname":"Preprocess.{rule}.{wildcards}",
+        "output" : "logs/slurm/{rule}.{wildcards}.out"
+    },
     "clean_fastq" :
     {
         "time" : "05:00:00",

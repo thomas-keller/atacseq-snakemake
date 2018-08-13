@@ -1,0 +1,19 @@
+{
+"__default__" : {
+    "job-name"       : "SM.{rule}",
+    "partition"      : "circe",
+    "time"           : "04:00:00",
+    "ntasks"         : 1,
+    "cpus-per-task"  : 1,
+    "mem" : "8G",
+    "output"         : "logs/%j.%N.out.txt",
+    "error"          : "logs/%j.%N.err.txt",
+    "mail-user"      : "tekeller@usf.edu",
+    "mail-type"      : "ALL"
+},
+    "clean_fastq" :
+    {
+        "time" : "05:00:00",
+        "mem":"48G"
+    }
+}
