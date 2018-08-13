@@ -30,9 +30,10 @@ echo "SM_ARGS: ${SM_ARGS}"
 # our SLURM error/output paths expect a logs/ subdir in PWD
 mkdir -p logs
 
-snakemake --unlock \
+snakemake --unlock
+snakemake \
     $* \
      --latency-wait 120 \
-    -j 999 \
+    --jobs=10 \
     --cluster-config cluster.json \
 --cluster "sbatch $SM_ARGS"
