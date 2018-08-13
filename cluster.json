@@ -5,6 +5,7 @@
         "partition" : "circe",
         "ntasks": 1,
         "cpus-per-tasks": 1,
+        "nodes": 1,
         "mem":"10G",
         "jobname":"Preprocess.{rule}.{wildcards}",
         "output" : "logs/slurm/{rule}.{wildcards}.out"
