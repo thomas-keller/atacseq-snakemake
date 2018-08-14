@@ -60,6 +60,6 @@ rule clean_fastq:
     threads: 8
     shell:
         """
-        bbsplit.sh -Xmx28g -t=12 in={input.fwd} in2={input.rev} basename=/work/t/tekeller/atac_toxo/01cln/{wildcards.case}_clean_%.fq
+        bbsplit.sh -Xmx28g -t=8 in={input.fwd} in2={input.rev} basename=/work/t/tekeller/atac_toxo/01cln/{wildcards.case}_clean_%.fq
         """
 
