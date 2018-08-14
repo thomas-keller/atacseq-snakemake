@@ -1,7 +1,7 @@
 #! /bin/bash
 
 #SBATCH --job-name=snakemake_gen
-#SBATCH --time=24:00:00
+#SBATCH --time=120:00:00
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem=8G
