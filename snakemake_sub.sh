@@ -25,6 +25,4 @@ sbcmd+=" --out={cluster.output}"
 #             --latency-wait 120 all
 
 snakemake --unlock
-snakemake -j8 -pr \
-    --cluster "sbatch --time={cluster.time} --partition={cluster.partition} --mem={cluster.mem} --cpus-per-task={cluster.cpus}" \ 
-    --cluster-config cluster.json --keep-going --latency-wait 120 --rerun-incomplete
+snakemake -j8 -pr --cluster "sbatch --time={cluster.time} --partition={cluster.partition} --mem={cluster.mem} --cpus-per-task={cluster.cpus}" --cluster-config cluster.json --keep-going --latency-wait 120 --rerun-incomplete
