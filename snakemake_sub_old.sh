@@ -31,9 +31,11 @@ echo "SM_ARGS: ${SM_ARGS}"
 mkdir -p logs
 
 snakemake --unlock
-snakemake \
-    $* \
-     --latency-wait 120 \
-    --jobs=10 \
-    --cluster-config cluster.json \
---cluster "sbatch $SM_ARGS"
+#snakemake \
+#    $* \
+#     --latency-wait 120 \
+#    --jobs=10 \
+#    --cluster-config cluster.json \
+#--cluster "sbatch $SM_ARGS"
+snakemake -j8 -pr --cluster "sbatch --time={cluster.time} --partition={cluster.partition} --mem={cluster.mem} --cpus-per-task={cluster.cpus}" \ 
+    --cluster-config cluster.json --keep-going --latency-wait 120 --rerun-incomplete

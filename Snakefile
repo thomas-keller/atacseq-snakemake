@@ -57,7 +57,6 @@ rule clean_fastq:
     output:
        hum_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_hg38.fq",
        tox_cl="/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
-    threads: 8
     shell:
         """
         bbsplit.sh -Xmx28g -t=8 in={input.fwd} in2={input.rev} basename=/work/t/tekeller/atac_toxo/01cln/{wildcards.case}_clean_%.fq

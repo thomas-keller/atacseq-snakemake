@@ -3,16 +3,17 @@
     {
         "time" : "03:00:00",
         "partition" : "circe",
-        "ntasks": 1,
-        "cpus-per-tasks": 1,
-        "nodes": 1,
-        "mem":"10G",
+        "ntasks": "1",
+        "cpus": "1",
+        "nodes": "1",
+        "mem":"8G",
         "jobname":"Preprocess.{rule}.{wildcards}",
         "output" : "logs/slurm/{rule}.{wildcards}.out"
     },
     "clean_fastq" :
     {
         "time" : "10:00:00",
-        "mem":"32G"
+        "mem":"32G",
+        "cpus":"8"
     }
 }
