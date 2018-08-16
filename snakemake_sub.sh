@@ -22,7 +22,14 @@ sbcmd+=" --out={cluster.output}"
 #snakemake --unlock
 #snakemake -pr --keep-going \
 #             --jobs 10 --cluster-config cluster.json --cluster "$sbcmd" \
-#             --latency-wait 120 all
+#             --latency-wait 120 all1S
+
+cp ~/atacseq-snakemake/snakemake_sub.sh /work/t/tekeller/atac_toxo
+cp ~/atacseq-snakemake/cluster.json /work/t/tekeller/atac_toxo
+cp ~/atacseq-snakemake/config.yml /work/t/tekeller/atac_toxo
+cp ~/atacseq-snakemake/Snakefile /work/t/tekeller/atac_toxo
+
+cd /work/t/tekeller/atac_toxo
 
 snakemake --unlock
-snakemake -j8 -pr --cluster "sbatch --time={cluster.time} --partition={cluster.partition} --mem={cluster.mem} --cpus-per-task={cluster.cpus}" --cluster-config cluster.json --keep-going --latency-wait 120 --rerun-incomplete
+snakemake -j8 -pr --cluster "sbatch --time={cluster.time} --partition={cluster.partition} --mem={cluster.mem} --cpus-per-task={cluster.cpus} --out={cluster.output}" --cluster-config cluster.json --keep-going --latency-wait 120 --rerun-incomplete
