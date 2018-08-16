@@ -28,6 +28,7 @@ cp ~/atacseq-snakemake/snakemake_sub.sh /work/t/tekeller/atac_toxo
 cp ~/atacseq-snakemake/cluster.json /work/t/tekeller/atac_toxo
 cp ~/atacseq-snakemake/config.yml /work/t/tekeller/atac_toxo
 cp ~/atacseq-snakemake/Snakefile /work/t/tekeller/atac_toxo
+cp ~/atacseq-snakemake/samples.json /work/t/tekeller/atac_toxo
 
 cd /work/t/tekeller/atac_toxo
 
