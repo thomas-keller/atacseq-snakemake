@@ -53,10 +53,24 @@ ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAM
  ATAQV_HG=expand("04aln/{case}_hg.sorted.bam.ataqv.json",case=CASES)
 ATAQV_ALL=ATAQV_CTL+ATAQV_HG
 
+ALN_HG=expand("04aln/{case}_hg.sorted.bam",case=CASES)
+ALN_TOXO=expand("04aln/{case}_toxo.sorted.bam",case=CASES)
+ALN_CTL=expand("04aln/{control}_toxo.sorted.bam",control=CONTROLS)
+ALN_ALL=ALN_HG+ALN_TOXO+ALN_CTL
+
+FLAG_HG=expand("04aln/{case}_hg.sorted.bam.flagstat",case=CASES)
+FLAG_TOXO=expand("04aln/{case}_toxo.sorted.bam.flagstat",case=CASES)
+FLAG_CTL=expand("04aln/{control}_toxo.sorted.bam.flagstat",control=CONTROLS)
+FLAG_ALL=FLAG_HG+FLAG_TOXO+FLAG_CTL
+
+NUCL_CASE=expand("09nucleoATAC/{case}_nucleoATAC.occpeaks.bed.gz",case=CASES)
+NUCL_CTL=expand("09nucleoATAC/{control}_nucleoATAC.occpeaks.bed.gz",control=CONTROLS)
+NUCL_ALL=NUCL_CASE+NUCL_CTL
+
 print(CASES)
 rule all:
     input:
-        CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO
+        CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
 
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
 
@@ -493,7 +507,7 @@ rule make_bed_nucleoATAC_hg:
 rule nucleoATAC_ctl:
 	input: "06aln_downsample/{control}-downsample.sorted.bam", "06aln_downsample/{control}-downsample.sorted.bam.bai", "09nucleoATAC/{control}_hg_nucleo.bed"
 	output: "09nucleoATAC/{control}_nucleoATAC.occpeaks.bed.gz"
-	log: "00log/{sample}_nucleoATAC.log"
+	log: "00log/{control}_nucleoATAC.log"
 	threads: 5
 	message: "calling nucleosome by nucleoATAC for {input} : {threads} threads"
 	params:
@@ -509,7 +523,7 @@ rule nucleoATAC_ctl:
 rule nucleoATAC_hg:
 	input: "06aln_downsample/{case}-hg-downsample.sorted.bam", "06aln_downsample/{case}-hg-downsample.sorted.bam.bai", "09nucleoATAC/{case}_hg_nucleo.bed"
 	output: "09nucleoATAC/{case}_nucleoATAC.occpeaks.bed.gz"
-	log: "00log/{sample}_nucleoATAC.log"
+	log: "00log/{case}_nucleoATAC.log"
 	threads: 5
 	message: "calling nucleosome by nucleoATAC for {input} : {threads} threads"
 	params:
