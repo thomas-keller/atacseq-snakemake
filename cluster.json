@@ -6,14 +6,157 @@
         "ntasks": "1",
         "cpus": "1",
         "nodes": "1",
-        "mem":"8G",
+        "mem":"16G",
         "jobname":"Preprocess.{rule}.{wildcards}",
         "output" : "logs/slurm/{rule}.{wildcards}.out"
+    },
+    "fastq" :
+    {
+        "time" : "2:00:00",
+        "mem":"8G",
+        "cpus":"1"
+    },
+    "trim_adapter" :
+    {
+        "time" : "12:00:00",
+        "mem":"16G",
+        "cpus":"1"
     },
     "clean_fastq" :
     {
         "time" : "10:00:00",
         "mem":"32G",
         "cpus":"8"
+    },
+    "align_cases_hg":
+    {
+        "time" : "6:00",
+        "MaxMem": 24768,
+        "cpu" : 5
+    },
+    "align_cases_toxo":
+    {
+        "time" : "6:00",
+        "MaxMem": 24768,
+        "cpu" : 5
+    },
+    "align_control":
+    {
+        "time" : "6:00",
+        "MaxMem": 24768,
+        "cpu" : 5
+    },
+    "sort_bam":
+    {
+        "time" : "01:00",
+        "MaxMem": 32768,
+        "cpu" : 5
+    },
+    "index_bam":
+    {
+        "time" : "00:30"
+    },
+    "flagstat_hg_bam":
+    {
+        "time" : "00:30"
+    },
+    "flagstat_toxo_bam":
+    {
+        "time" : "00:30"
+    },
+    "flagstat_control_bam":
+    {
+        "time" : "00:30"
+    },
+    "phantom_peak_qual":
+    {
+        "time": "03:00",
+        "cpu" : 4
+    },
+    "phantom_peak_hg_qual":
+    {
+        "time": "03:00",
+        "cpu" : 4
+    },
+    "flagstat_chrM_exclude_bam_case":
+    {
+      "time" : "00:30"
+    },
+    "flagstat_chrM_exclude_bam_hg":
+    {
+      "time" : "00:30"
+    },
+    "down_sample":
+    {
+        "time" : "2:00",
+        "MaxMem": 32768,
+        "cpu" : 5
+    },
+    "down_sample_hg":
+    {
+        "time" : "2:00",
+        "MaxMem": 32768,
+        "cpu" : 5
+    },
+    "call_peaks_macs2":
+    {   "time" : "03:00"
+    },
+    "call_peaks_macs2_hg":
+    {   "time" : "03:00"
+    },
+    "make_bigwigs":
+    {
+        "time" : "03:00",
+        "MaxMem": 32768,
+        "cpu" : 5
+    },
+    "make_bigwigs_hg":
+    {
+        "time" : "03:00",
+        "MaxMem": 32768,
+        "cpu" : 5
+    },
+    "multiQC" :
+    {
+        "time" : "00:10"
+    },
+    "ataqv":
+    {
+        "time": "01:00"
+    },
+    "json_to_html":
+    {
+        "time": "00:30"
+    },
+    "remove_chrM_bam":
+    {
+        "time": "02:00",
+        "cpu": 5
+    },
+    "remove_chrM_hg)bam":
+    {
+        "time": "02:00",
+        "cpu": 5
+    },
+    "make_bed_nucleoATAC_ctl":
+    {
+        "time": "00:10"
+    },
+    "make_bed_nucleoATAC_hg":
+    {
+        "time": "00:10"
+    },
+    "nucleoATAC_ctl":
+    {
+        "time": "12:00",
+        "MaxMem": 32768,
+        "cpu" : 5
+    },
+    "nuceoATAC_hg":
+    {
+        "time": "12:00",
+        "MaxMem": 32768,
+        "cpu" : 5
     }
+
 }

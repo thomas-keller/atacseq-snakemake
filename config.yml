@@ -1,4 +1,5 @@
 idx_star: /work/t/tekeller/refhg38/
+idx_bt2: /work/t/tekeller/hg38bt/
 macs_g: hs
 macs_pvalue: 1e-5
 macs2_g: hs
@@ -9,9 +10,12 @@ control: 'Uninfected'
 #superEnhancer genome
 rose_g: hg38
 
-#number of reads downsample to, I set to 50 million, if reads number smaller than
-## 50 million, downsample will keep the orignal reads
-target_reads: 50000000
+#number of reads downsample to, I set to 25 million, if reads number smaller than
+## 25 million, downsample will keep the orignal reads
+target_reads: 2500000
+
+
+
 
 ## run chromHMM or not
 chromHMM: False
