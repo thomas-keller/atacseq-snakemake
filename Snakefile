@@ -73,7 +73,8 @@ rule all:
         CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
 
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
-
+ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAMPLES)
+ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz",case=CASES)
 
 rule fastqc:
     input:  "/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz", "/work/t/tekeller/atac_toxo/{sample}.2_val_2.fq.gz"
@@ -117,7 +118,7 @@ rule clean_fastq:
        tox_cl="/work/t/tekeller/atac_toxo/03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
     shell:
         """
-        bbsplit.sh -Xmx28g -t=8 in={input.fwd} in2={input.rev} basename=02cln/{wildcards.case}_clean_%.fq
+        bbsplit.sh -Xmx28g -t=8 in={input.fwd} in2={input.rev} basename=03cln/{wildcards.case}_clean_%.fq
         """
 
 
@@ -463,7 +464,7 @@ rule multiQC:
     input :
         expand("00log/{case}_hg.align", case = CASES),
 		expand("00log/{case}_toxo.align", case = CASES),
-		expand("00log/{control}.align", case = CASES1),
+		expand("00log/{control}.align", case = CASES),
         expand("04aln/{case}_hg.sorted.bam.flagstat", case= CASES),
 		 expand("04aln/{control}_toxo.sorted.bam.flagstat", case= CASES),
         expand("02fqc/{case}.{read}.fastqc.zip", sample = ALL_SAMPLES, read = ["1_val_1", "2_val_2"])
