@@ -29,7 +29,7 @@ CONTROLS = [sample for sample in SAMPLES if CONTROL in sample]
 CASES = [sample for sample in SAMPLES if CONTROL not in sample]
 
 
-CASE_FILES=expand("/work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz")
+CASE_FILES=expand("/work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz",case=CASES)
 
 logdir = os.path.join(os.getcwd(), "logs/slurm")
 os.makedirs(logdir, exist_ok=True)
@@ -68,13 +68,15 @@ ALN_ALL=ALN_HG+ALN_TOXO+ALN_CTL
 #NUCL_ALL=NUCL_CASE+NUCL_CTL
 
 print(CASES)
+print(CONTROLS)
 rule all:
     input:
-        CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
+        #CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
+		CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL
 
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
 ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAMPLES)
-ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz",case=CASES)
+ALL_CASES=expand("work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz",case=CASES)
 
 rule fastqc:
     input:  "/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz", "/work/t/tekeller/atac_toxo/{sample}.2_val_2.fq.gz"
