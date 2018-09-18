@@ -113,8 +113,8 @@ rule clean_fastq:
     input:
         genome=GENOME,
         toxo=TOXO,
-        fwd="02trim/{case}.1_val_1.fq.gz",
-        rev="02trim/{case}.2_val_2.fq.gz"
+        fwd="02trim/{case}.1_val_1.trimmed.fastq.gz",
+        rev="02trim/{case}.2_val_2.trimmed.fastq.gz"
     output:
        hum_cl="/work/t/tekeller/atac_toxo/03cln/{case}_clean_hg38.fq",
        tox_cl="/work/t/tekeller/atac_toxo/03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
