@@ -72,7 +72,7 @@ print(CONTROLS)
 rule all:
     input:
         #CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
-		CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL
+        CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL
 
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
 ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAMPLES)
