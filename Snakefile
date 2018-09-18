@@ -104,8 +104,8 @@ rule trim_adapter:
  		# python2.x
  		#source activate root
 		trim_adapters {input[0]} {input[1]} 2> {log}
-		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.1_val_1.trimmed.fq.gz 01trim/
-		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.2_val_2.trimmed.fq.gz 01trim/
+		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.1_val_1.trimmed.fq.gz 02trim/
+		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.2_val_2.trimmed.fq.gz 02trim/
  		"""
 
 
