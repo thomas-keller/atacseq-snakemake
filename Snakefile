@@ -47,7 +47,7 @@ def rstrip(text, suffix):
 #CONTROL_MERGED_FASTQ = expand("02seq/{control}_merged.fq.gz", control = CONTROLS)
 CASE_CLEAN_HG=expand("/work/t/tekeller/atac_toxo/01cln/{case}_clean_hg38.fq",case=CASES)
 CASE_CLEAN_TOXO=expand("/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq",case=CASES)
-ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{sample}.{read}.fq.gz",sample=SAMPLES,read=['1_val_1','2_val_2'])
+ALL_SAMPLES=expand("/work/t/tekeller/atac_toxo/{sample}.{read}.fq.gz",sample=SAMPLES,read=['1_val_1','2_val_2'])
 
 FASTQC_ALL=expand('/work/t/tekeller/atac_toxo/01fqc/{sample}.{read}.fastqc.zip',sample=SAMPLES,read=['1_val_1','2_val_2'])
 # ATAQV_CTL=expand("04aln/{control}.sorted.bam.ataqv.json",control=CONTROLS)
