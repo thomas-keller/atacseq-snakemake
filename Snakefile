@@ -45,8 +45,8 @@ def rstrip(text, suffix):
 # Rules -----------------------------------------------------------------------
 
 #CONTROL_MERGED_FASTQ = expand("02seq/{control}_merged.fq.gz", control = CONTROLS)
-CASE_CLEAN_HG=expand("/work/t/tekeller/atac_toxo/01cln/{case}_clean_hg38.fq",case=CASES)
-CASE_CLEAN_TOXO=expand("/work/t/tekeller/atac_toxo/01cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq",case=CASES)
+CASE_CLEAN_HG=expand("03cln/{case}_clean_hg38.fq",case=CASES)
+CASE_CLEAN_TOXO=expand("03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq",case=CASES)
 ALL_SAMPLES=expand("/work/t/tekeller/atac_toxo/{sample}.{read}.fq.gz",sample=SAMPLES,read=['1_val_1','2_val_2'])
 
 FASTQC_ALL=expand('/work/t/tekeller/atac_toxo/01fqc/{sample}.{read}.fastqc.zip',sample=SAMPLES,read=['1_val_1','2_val_2'])
@@ -74,10 +74,10 @@ rule all:
     input:
         ALL_SAMPLES+ CASE_CLEAN_HG + CASE_CLEAN_TOXO
 		#CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
-		
+
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
-ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAMPLES)
-ALL_CASES=expand("work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz",case=CASES)
+ALL_SAMPLES=expand("/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAMPLES)
+ALL_CASES=expand("/work/t/tekeller/atac_toxo/{case}.1_val_1.fq.gz",case=CASES)
 
 rule fastqc:
     input:  "/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz", "/work/t/tekeller/atac_toxo/{sample}.2_val_2.fq.gz"
