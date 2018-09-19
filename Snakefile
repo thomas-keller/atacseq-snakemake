@@ -116,11 +116,11 @@ rule clean_fastq:
         fwd="02trim/{case}.1_val_1.trimmed.fastq.gz",
         rev="02trim/{case}.2_val_2.trimmed.fastq.gz"
     output:
-       hum_cl="/work/t/tekeller/atac_toxo/03cln/{case}_clean_hg38.fq",
-       tox_cl="/work/t/tekeller/atac_toxo/03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
+       hum_cl="03cln/{case}_clean_hg38.fq",
+       tox_cl="03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
     shell:
         """
-        bbsplit.sh -Xmx28g -t=8 in={input.fwd} in2={input.rev} basename=03cln/{wildcards.case}_clean_%.fq
+        bbsplit.sh -Xmx28g -t=8 in={input.fwd} in2={input.rev} out_hg38.fq={output.hum_cl} out_ToxoDB-38_TgondiiME49_Genome.fq={output.tox_cl}
         """
 
 
