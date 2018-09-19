@@ -55,7 +55,7 @@ ALL_SAMPLES=expand("work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAM
 
 ALN_HG=expand("04aln/{case}_hg.sorted.bam",case=CASES)
 ALN_TOXO=expand("04aln/{case}_toxo.sorted.bam",case=CASES)
-ALN_CTL=expand("04aln/{control}_toxo.sorted.bam",control=CONTROLS)
+ALN_CTL=expand("04aln/{control}.sorted.bam",control=CONTROLS)
 ALN_ALL=ALN_HG+ALN_TOXO+ALN_CTL
 
 #FLAG_HG=expand("04aln/{case}_hg.sorted.bam.flagstat",case=CASES)
