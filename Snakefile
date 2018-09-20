@@ -95,7 +95,7 @@ rule fastqc:
 
 rule trim_adapter:
  	input: "/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz", "/work/t/tekeller/atac_toxo/{sample}.2_val_2.fq.gz"
- 	output: "02trim/{sample}.1_val_1.trimmed.fq.gz", "02trim/{sample}.2_val_2.trimmed.fq.gz"
+ 	output: "02trim/{sample}.1_val_1.trimmed.fastq.gz", "02trim/{sample}.2_val_2.trimmed.fastq.gz"
  	log: "00log/{sample}_trim_adaptor.log"
  	threads: 1
  	params : jobname = "{sample}"
@@ -105,8 +105,8 @@ rule trim_adapter:
  		# python2.x
  		#source activate root
 		trim_adapters {input[0]} {input[1]} 2> {log}
-		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.1_val_1.trimmed.fq.gz 02trim/
-		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.2_val_2.trimmed.fq.gz 02trim/
+		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.1_val_1.trimmed.fastq.gz 02trim/
+		mv /work/t/tekeller/atac_toxo/{wildcards.sample}.2_val_2.trimmed.fastq.gz 02trim/
  		"""
 
 
