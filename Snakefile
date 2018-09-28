@@ -116,7 +116,6 @@ rule clean_fastq:
         toxo=TOXO,
         fwd="02trim/{case}.1_val_1.trimmed.fastq.gz",
         rev="02trim/{case}.2_val_2.trimmed.fastq.gz"
-    log:"00
     output:
        hum_cl="03cln/{case}_clean_hg38.fq",
        tox_cl="03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
