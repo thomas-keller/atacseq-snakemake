@@ -60,21 +60,27 @@ ALN_CTL=expand("04aln/{control}.sorted.bam",control=CONTROLS)
 ALN_ALL=ALN_HG+ALN_TOXO+ALN_CTL
 
 
-#FLAG_HG=expand("04aln/{case}_hg.sorted.bam.flagstat",case=CASES)
-#FLAG_TOXO=expand("04aln/{case}_toxo.sorted.bam.flagstat",case=CASES)
-#FLAG_CTL=expand("04aln/{control}_toxo.sorted.bam.flagstat",control=CONTROLS)
-#FLAG_ALL=FLAG_HG+FLAG_TOXO+FLAG_CTL
+FLAG_HG=expand("04aln/{case}_hg.sorted.bam.flagstat",case=CASES)
+FLAG_TOXO=expand("04aln/{case}_toxo.sorted.bam.flagstat",case=CASES)
+FLAG_CTL=expand("04aln/{control}_toxo.sorted.bam.flagstat",control=CONTROLS)
+FLAG_ALL=FLAG_HG+FLAG_TOXO+FLAG_CTL
+
+RM_CHRM_CTL=expand("06aln_exclude_chrM/{control}_exclude_chrM.sorted.bam",control=CONTROLS)
+RM_CHRM_CASES=expand("06aln_exclude_chrM/{case}_hg_exclude_chrM.sorted.bam",case=CASES)
+RM_CHRM_ALL=RM_CHRM_CTL+RM_CHRM_CASES
 
 #NUCL_CASE=expand("09nucleoATAC/{case}_nucleoATAC.occpeaks.bed.gz",case=CASES)
 #NUCL_CTL=expand("09nucleoATAC/{control}_nucleoATAC.occpeaks.bed.gz",control=CONTROLS)
 #NUCL_ALL=NUCL_CASE+NUCL_CTL
 
+ATAQV="11ATAC_qc_html"
+
 print(CASES)
 print(CONTROLS)
 rule all:
     input:
-        ALL_SAMPLES+ CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL
-		#CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
+		#CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL+RM_CHRM_ALL
+        ALL_SAMPLES+ CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+ATAQV
 
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
 ALL_SAMPLES=expand("/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAMPLES)
@@ -156,7 +162,7 @@ rule align_cases_toxo:
 	shell:
 		"""
 		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
-		bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} --interleaved {input[0]} 2> {log.bowtie2} \
+		bowtie2 --threads 5  -X2000 -x {config[idx_bt2_toxo]} --interleaved {input[0]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
 		"""
@@ -177,4 +183,111 @@ rule align_control:
 		bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} -1 {input[0]} -2 {input[1]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
+		"""
+
+
+# check number of reads mapped by samtools flagstat
+rule flagstat_hg_bam:
+    input:  "04aln/{case}_hg.sorted.bam"
+    output: "04aln/{case}_hg.sorted.bam.flagstat"
+    log:    "00log/{case}.flagstat_bam"
+    threads: 1
+    params: jobname = "{case}"
+    message: "flagstat_bam {input}: {threads} threads"
+    shell:
+        """
+        samtools flagstat {input} > {output} 2> {log}
+        """
+
+rule flagstat_toxo_bam:
+    input:  "04aln/{case}_toxo.sorted.bam"
+    output: "04aln/{case}_toxo.sorted.bam.flagstat"
+    log:    "00log/{case}.flagstat_bam"
+    threads: 1
+    params: jobname = "{case}"
+    message: "flagstat_bam {input}: {threads} threads"
+    shell:
+        """
+        samtools flagstat {input} > {output} 2> {log}
+        """
+
+rule flagstat_control_bam:
+    input:  "04aln/{control}.sorted.bam"
+    output: "04aln/{control}.sorted.bam.flagstat"
+    log:    "00log/{control}.flagstat_bam"
+    threads: 1
+    params: jobname = "{control}"
+    message: "flagstat_bam {input}: {threads} threads"
+    shell:
+        """
+        samtools flagstat {input} > {output} 2> {log}
+        """
+
+
+rule ataqv:
+	input: 
+		ctl="04aln/{control}.sorted.bam",
+		hum="04aln/{case}_hg.sorted.bam",
+		
+	output: "04aln/{control}.sorted.bam.ataqv.json","04aln/{case}_hg.sorted.bam.ataqv.json",
+	log: "00log/{control}_ataqv.log","00log/{case}_ataqv.log"
+	threads: 1
+	params: jobname = "{input}"
+	message: "ataqv quality control for {input}"
+	shell:
+		"""
+		~/ataqv-1.0.0/bin/ataqv human {input.ctl} --metrics-file {output[0]} 2> {log}
+		~/ataqv-1.0.0/bin/ataqv human {input.hum} --metrics-file {output[1]} 2> {log}
+		"""
+
+rule json_to_html:
+	input: ATAQV_ALL
+	output: "11ATAC_qc_html"
+	log: "00log/ATAC_qc_html.log"
+	threads: 1
+	message: "compiling json files to html ATAC-seq QC"
+	shell:
+		"""
+		#source activate root
+		~/ataqv-1.0.0/bin/mkarv 11ATAC_qc_html {input}
+		"""
+
+    ## shifting the reads are only critical for TF footprint, for peak calling and making bigwigs, it should be fine using the bams without shifting
+# https://sites.google.com/site/atacseqpublic/atac-seq-analysis-methods/offsetmethods
+rule remove_chrM_bam:
+	input: "04aln/{control}.sorted.bam"
+	output: "06aln_exclude_chrM/{control}_exclude_chrM.sorted.bam", "06aln_exclude_chrM/{control}_exclude_chrM.sorted.bam.bai"
+	log: "00log/{control}_exclude_chrM_bam.log"
+	threads: 5
+	message: "excluding chrM from bam {input} : {threads} threads"
+	params: jobname = "{control}"
+	shell:
+		"""
+		# remove duplicates and reads on chrM, coordinate sort the bam
+		# samblaster expects name sorted bamq
+		module add apps/samtools
+		samtools view -h {input} | samblaster --removeDups \
+		| grep -v -P '\tchrM\t' \
+		| samtools view -Sb -F 4 - \
+		| samtools sort -m 2G -@ 5 -T {input}.tmp -o {output[0]}
+		samtools index {output[0]}
+		"""
+
+rule remove_chrM_bam_hg:
+	input: "04aln/{case}_hg.sorted.bam"
+	output: "06aln_exclude_chrM/{case}_hg_exclude_chrM.sorted.bam", "06aln_exclude_chrM/{case}_hg_exclude_chrM.sorted.bam.bai"
+	log: "00log/{case}_exclude_chrM_bam.log"
+	threads: 5
+	message: "excluding chrM from bam {input} : {threads} threads"
+	params: jobname = "{case}"
+	shell:
+		"""
+		# remove duplicates and reads on chrM, coordinate sort the bam
+		# samblaster expects name sorted bamq
+		module add apps/samtools
+		samtools view -h {input} | samblaster --removeDups \
+		| grep -v -P '\tchrM\t' \
+		| samtools view -Sb -F 4 - \
+		| samtools sort -m 2G -@ 5 -T {input}.tmp -o {output[0]}
+		samtools index {output[0]}
 		"""
