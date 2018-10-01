@@ -46,6 +46,15 @@
         "MaxMem": 24768,
         "cpu" : 5
     },
+    "ataqv":
+    {
+        "time" : "1:00:00"
+
+    },
+    "ataqv_cases":
+    {
+        "time" : "1:00:00"
+    }
     "sort_bam":
     {
         "time" : "01:00",
@@ -133,7 +142,7 @@
         "time": "02:00",
         "cpu": 5
     },
-    "remove_chrM_hg)bam":
+    "remove_chrM_hg_bam":
     {
         "time": "02:00",
         "cpu": 5

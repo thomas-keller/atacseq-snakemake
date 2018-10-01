@@ -223,21 +223,31 @@ rule flagstat_control_bam:
         samtools flagstat {input} > {output} 2> {log}
         """
 
-
+#split this out!
 rule ataqv:
-	input: 
-		ctl="04aln/{control}.sorted.bam",
-		hum="04aln/{case}_hg.sorted.bam",
-		
-	output: "04aln/{control}.sorted.bam.ataqv.json","04aln/{case}_hg.sorted.bam.ataqv.json",
-	log: "00log/{control}_ataqv.log","00log/{case}_ataqv.log"
+	input: "04aln/{control}.sorted.bam"
+	output: "04aln/{control}.sorted.bam.ataqv.json"
+	log: "00log/{control}_ataqv.log"
 	threads: 1
 	params: jobname = "{input}"
 	message: "ataqv quality control for {input}"
 	shell:
 		"""
-		~/ataqv-1.0.0/bin/ataqv human {input.ctl} --metrics-file {output[0]} 2> {log[0]}
-		~/ataqv-1.0.0/bin/ataqv human {input.hum} --metrics-file {output[1]} 2> {log[1]}
+		~/ataqv-1.0.0/bin/ataqv human {input} --metrics-file {output} 2> {log}
+		
+		"""
+
+rule ataqv_cases:
+	input: "04aln/{case}_hg.sorted.bam",
+		
+	output: "04aln/{case}_hg.sorted.bam.ataqv.json"
+	log: "00log/{case}_ataqv.log"
+	threads: 1
+	params: jobname = "{input}"
+	message: "ataqv quality control for {input}"
+	shell:
+		"""
+		~/ataqv-1.0.0/bin/ataqv human {input} --metrics-file {output} 2> {log}
 		"""
 
 rule json_to_html:
