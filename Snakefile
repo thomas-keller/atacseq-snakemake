@@ -236,8 +236,8 @@ rule ataqv:
 	message: "ataqv quality control for {input}"
 	shell:
 		"""
-		~/ataqv-1.0.0/bin/ataqv human {input.ctl} --metrics-file {output[0]} 2> {log}
-		~/ataqv-1.0.0/bin/ataqv human {input.hum} --metrics-file {output[1]} 2> {log}
+		~/ataqv-1.0.0/bin/ataqv human {input.ctl} --metrics-file {output[0]} 2> {log[0]}
+		~/ataqv-1.0.0/bin/ataqv human {input.hum} --metrics-file {output[1]} 2> {log[1]}
 		"""
 
 rule json_to_html:
