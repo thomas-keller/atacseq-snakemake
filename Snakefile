@@ -73,7 +73,7 @@ RM_CHRM_ALL=RM_CHRM_CTL+RM_CHRM_CASES
 #NUCL_CTL=expand("09nucleoATAC/{control}_nucleoATAC.occpeaks.bed.gz",control=CONTROLS)
 #NUCL_ALL=NUCL_CASE+NUCL_CTL
 
-#ATAQV=["11ATAC_qc_html"]
+ATAQV=["11ATAC_qc_html"]
 
 print(CASES)
 print(CONTROLS)
