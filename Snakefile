@@ -148,7 +148,7 @@ rule align_cases_hg:
 rule align_cases_toxo:
 	input: "/work/t/tekeller/atac_toxo/03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
 	output: "04aln/{case}_toxo.sorted.bam", "00log/{case}.align"
-	params: jobname = "{sample}"
+	params: jobname = "{case}"
 	message: "aligning {input}: {threads} threads"
 	log:
 		bowtie2 = "00log/{case}_toxo.align",
