@@ -54,10 +54,11 @@ FASTQC_ALL=expand('/work/t/tekeller/atac_toxo/01fqc/{sample}.{read}.fastqc.zip',
 # ATAQV_HG=expand("04aln/{case}_hg.sorted.bam.ataqv.json",case=CASES)
 #ATAQV_ALL=ATAQV_CTL+ATAQV_HG
 
-#ALN_HG=expand("04aln/{case}_hg.sorted.bam",case=CASES)
-#ALN_TOXO=expand("04aln/{case}_toxo.sorted.bam",case=CASES)
-#ALN_ALL=ALN_HG+ALN_TOXO+ALN_CTL
-#ALN_CTL=expand("04aln/{control}.sorted.bam",control=CONTROLS)
+ALN_HG=expand("04aln/{case}_hg.sorted.bam",case=CASES)
+ALN_TOXO=expand("04aln/{case}_toxo.sorted.bam",case=CASES)
+ALN_CTL=expand("04aln/{control}.sorted.bam",control=CONTROLS)
+ALN_ALL=ALN_HG+ALN_TOXO+ALN_CTL
+
 
 #FLAG_HG=expand("04aln/{case}_hg.sorted.bam.flagstat",case=CASES)
 #FLAG_TOXO=expand("04aln/{case}_toxo.sorted.bam.flagstat",case=CASES)
@@ -72,7 +73,7 @@ print(CASES)
 print(CONTROLS)
 rule all:
     input:
-        ALL_SAMPLES+ CASE_CLEAN_HG + CASE_CLEAN_TOXO
+        ALL_SAMPLES+ CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL
 		#CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL
 
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
@@ -124,3 +125,56 @@ rule clean_fastq:
         bbsplit.sh -Xmx28g -t=8 in={input.fwd} in2={input.rev} basename=03cln/{wildcards.case}_clean_%.fq
         """
 
+#following pyflow-ATACseq
+#https://github.com/crazyhottommy/pyflow-ATACseq
+## the later step will remove chrM from the bam file and coordinate sort the bam
+## so I did not cooridnate sort the bam at this step to save some time.
+rule align_cases_hg:
+	input: "03cln/{case}_clean_hg38.fq"
+	output: "04aln/{case}_hg.sorted.bam", "00log/{case}.align"
+	params: jobname = "{case}"
+	message: "aligning {input}: {threads} threads"
+	log:
+		bowtie2 = "00log/{case}_hg.align",
+		markdup = "00log/{case}_hg.markdup"
+	shell:
+		"""
+		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
+		bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} --interleaved {input[0]} 2> {log.bowtie2} \
+		| samblaster 2> {log.markdup} \
+		| samtools view -Sb - > {output[0]}
+		"""
+
+rule align_cases_toxo:
+	input: "/work/t/tekeller/atac_toxo/03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
+	output: "04aln/{case}_toxo.sorted.bam", "00log/{case}.align"
+	params: jobname = "{sample}"
+	message: "aligning {input}: {threads} threads"
+	log:
+		bowtie2 = "00log/{case}_toxo.align",
+		markdup = "00log/{case}_toxo.markdup"
+	shell:
+		"""
+		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
+		bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} --interleaved {input[0]} 2> {log.bowtie2} \
+		| samblaster 2> {log.markdup} \
+		| samtools view -Sb - > {output[0]}
+		"""
+
+
+rule align_control:
+	input: "/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz","/work/t/tekeller/atac_toxo/{control}.2_val_2.fq.gz"
+	output: "04aln/{control}.sorted.bam", "00log/{control}.align"
+	params: jobname = "{control}"
+	message: "aligning {input}: {threads} threads"
+	log:
+		bowtie2 = "00log/{control}.align",
+		markdup = "00log/{control}.markdup"
+	shell:
+		"""
+		module add apps/samtools
+		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
+		bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} -1 {input[0]} -2 {input[1]} 2> {log.bowtie2} \
+		| samblaster 2> {log.markdup} \
+		| samtools view -Sb - > {output[0]}
+		"""
