@@ -251,7 +251,7 @@ rule ataqv_cases:
 		"""
 # got to here....
 rule json_to_html:
-	input: ATAQV_ALL
+	input: "04aln/{control}.sorted.bam.ataqv.json","04aln/{case}_hg.sorted.bam.ataqv.json"
 	output: "11ATAC_qc_html"
 	log: "00log/ATAC_qc_html.log"
 	threads: 1
