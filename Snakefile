@@ -249,7 +249,7 @@ rule ataqv_cases:
 		"""
 		~/ataqv-1.0.0/bin/ataqv human {input} --metrics-file {output} 2> {log}
 		"""
-
+# got to here....
 rule json_to_html:
 	input: ATAQV_ALL
 	output: "11ATAC_qc_html"
