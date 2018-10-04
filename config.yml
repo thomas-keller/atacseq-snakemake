@@ -1,5 +1,5 @@
 idx_star: /work/t/tekeller/refhg38/
-idx_bt2: /work/t/tekeller/bt2-indexes/hg38bt2
+idx_bt2: /work/t/tekeller/bt2-indexes/hg38
 idx_bt2_toxo: /work/t/tekeller/bt2-indexes/toxodb38-me49
 macs_g: hs
 macs_pvalue: 1e-5
