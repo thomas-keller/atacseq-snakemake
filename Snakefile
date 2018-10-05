@@ -143,16 +143,15 @@ rule align_cases_hg:
 	log:
 		bowtie2 = "00log/{case}_hg.align",
 		markdup = "00log/{case}_hg.markdup"
-	shell:
-		"""
+	run:
 		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
-        module add apps/samtools
-        module add apps/bowtie
-        
-		bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} --interleaved {input[0]} 2> {log.bowtie2} \
+        shell("module add apps/samtools")
+        shell("module add apps/bowtie")
+
+		shell("""bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} --interleaved {input[0]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
-		"""
+		""")
 
 rule align_cases_toxo:
 	input: "/work/t/tekeller/atac_toxo/03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
@@ -162,16 +161,15 @@ rule align_cases_toxo:
 	log:
 		bowtie2 = "00log/{case}_toxo.align",
 		markdup = "00log/{case}_toxo.markdup"
-	shell:
-		"""
+	run:
 		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
-        module add apps/samtools
-        module add apps/bowtie
+        shell("module add apps/samtools")
+        shell("module add apps/bowtie")
 
-		bowtie2 --threads 5  -X2000 -x {config[idx_bt2_toxo]} --interleaved {input[0]} 2> {log.bowtie2} \
+		shell("""bowtie2 --threads 5  -X2000 -x {config[idx_bt2_toxo]} --interleaved {input[0]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
-		"""
+		""")
 
 
 rule align_control:
@@ -182,15 +180,15 @@ rule align_control:
 	log:
 		bowtie2 = "00log/{control}.align",
 		markdup = "00log/{control}.markdup"
-	shell:
-		"""
+	run:
+		
 		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
-        module add apps/samtools
-        module add apps/bowtie
+        shell("module add apps/samtools")
+        shell("module add apps/bowtie")
 
-		bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} -1 {input[0]} -2 {input[1]} 2> {log.bowtie2} \
+		shell("""bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} -1 {input[0]} -2 {input[1]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
-		"""
+		""")
 
 
