@@ -144,10 +144,8 @@ rule align_cases_hg:
 		bowtie2 = "00log/{case}_hg.align",
 		markdup = "00log/{case}_hg.markdup"
 	run:
-		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
         shell("module add apps/samtools")
         shell("module add apps/bowtie")
-
 		shell("""bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} --interleaved {input[0]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
@@ -162,10 +160,8 @@ rule align_cases_toxo:
 		bowtie2 = "00log/{case}_toxo.align",
 		markdup = "00log/{case}_toxo.markdup"
 	run:
-		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
         shell("module add apps/samtools")
         shell("module add apps/bowtie")
-
 		shell("""bowtie2 --threads 5  -X2000 -x {config[idx_bt2_toxo]} --interleaved {input[0]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
@@ -181,11 +177,8 @@ rule align_control:
 		bowtie2 = "00log/{control}.align",
 		markdup = "00log/{control}.markdup"
 	run:
-		
-		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
         shell("module add apps/samtools")
         shell("module add apps/bowtie")
-
 		shell("""bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} -1 {input[0]} -2 {input[1]} 2> {log.bowtie2} \
 		| samblaster 2> {log.markdup} \
 		| samtools view -Sb - > {output[0]}
