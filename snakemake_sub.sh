@@ -32,5 +32,6 @@ cp ~/atacseq-snakemake/samples.json /work/t/tekeller/atac_toxo
 
 cd /work/t/tekeller/atac_toxo
 
+source activate snakemake
 snakemake --unlock
 snakemake -j8 -pr --cluster "sbatch --time={cluster.time} --partition={cluster.partition} --mem={cluster.mem} --cpus-per-task={cluster.cpus} --out={cluster.output}" --cluster-config cluster.json --keep-going --latency-wait 120 --rerun-incomplete
