@@ -30,19 +30,19 @@
     },
     "align_cases_hg":
     {
-        "time" : "6:00",
+        "time" : "6:00:00",
         "mem": "24G",
         "cpus" : "5"
     },
     "align_cases_toxo":
     {
-        "time" : "6:00",
+        "time" : "6:00:00",
         "mem": "24G",
         "cpus" : "5"
     },
     "align_control":
     {
-        "time" : "6:00",
+        "time" : "6:00:00",
         "mem": "24G",
         "cpus" : "5"
     },
@@ -57,43 +57,43 @@
     },
     "sort_bam":
     {
-        "time" : "01:00",
+        "time" : "01:00:00",
         "mem": "16G",
         "cpus" : "5"
     },
     "index_bam":
     {
-        "time" : "00:30"
+        "time" : "00:30:00"
     },
     "flagstat_hg_bam":
     {
-        "time" : "00:30"
+        "time" : "00:30:00"
     },
     "flagstat_toxo_bam":
     {
-        "time" : "00:30"
+        "time" : "00:30:00"
     },
     "flagstat_control_bam":
     {
-        "time" : "00:30"
+        "time" : "00:30:00"
     },
     "phantom_peak_qual":
     {
-        "time": "03:00",
+        "time": "03:00:00",
         "cpus" : "4"
     },
     "phantom_peak_hg_qual":
     {
-        "time": "03:00",
+        "time": "03:00:00",
         "cpus" : "4"
     },
     "flagstat_chrM_exclude_bam_case":
     {
-      "time" : "00:30"
+      "time" : "00:30:00"
     },
     "flagstat_chrM_exclude_bam_hg":
     {
-      "time" : "00:30"
+      "time" : "00:30:00"
     },
     "down_sample":
     {
@@ -103,44 +103,44 @@
     },
     "down_sample_hg":
     {
-        "time" : "2:00",
+        "time" : "2:00:00",
         "mem": "31G",
         "cpus" : "5"
     },
     "call_peaks_macs2":
-    {   "time" : "03:00"
+    {   "time" : "03:00:00"
     },
     "call_peaks_macs2_hg":
-    {   "time" : "03:00"
+    {   "time" : "03:00:00"
     },
     "make_bigwigs":
     {
-        "time" : "03:00",
+        "time" : "03:00:00",
         "mem": "31G",
         "cpus" : "5"
     },
     "make_bigwigs_hg":
     {
-        "time" : "03:00",
+        "time" : "03:00:00",
         "mem": "31G",
         "cpus" : "5"
     },
     "multiQC" :
     {
-        "time" : "00:10"
+        "time" : "00:10:00"
     },
     "json_to_html":
     {
-        "time": "00:30"
+        "time": "00:30:00"
     },
     "remove_chrM_bam":
     {
-        "time": "02:00",
+        "time": "02:00:00",
         "cpu": "5"
     },
     "remove_chrM_hg_bam":
     {
-        "time": "02:00",
+        "time": "02:00:00",
         "cpu": "5"
     },
     "make_bed_nucleoATAC_ctl":
