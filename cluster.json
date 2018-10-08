@@ -31,20 +31,20 @@
     "align_cases_hg":
     {
         "time" : "6:00",
-        "MaxMem": 24768,
-        "cpu" : 5
+        "mem": "24G",
+        "cpus" : 5
     },
     "align_cases_toxo":
     {
         "time" : "6:00",
-        "MaxMem": 24768,
-        "cpu" : 5
+        "mem": "24G",
+        "cpus" : 5
     },
     "align_control":
     {
         "time" : "6:00",
-        "MaxMem": 24768,
-        "cpu" : 5
+        "mem": "24G",
+        "cpus" : 5
     },
     "ataqv":
     {
@@ -58,8 +58,8 @@
     "sort_bam":
     {
         "time" : "01:00",
-        "MaxMem": 32768,
-        "cpu" : 5
+        "mem": "16G",
+        "cpus" : 5
     },
     "index_bam":
     {
@@ -80,12 +80,12 @@
     "phantom_peak_qual":
     {
         "time": "03:00",
-        "cpu" : 4
+        "cpus" : 4
     },
     "phantom_peak_hg_qual":
     {
         "time": "03:00",
-        "cpu" : 4
+        "cpus" : 4
     },
     "flagstat_chrM_exclude_bam_case":
     {
@@ -98,14 +98,14 @@
     "down_sample":
     {
         "time" : "2:00",
-        "MaxMem": 32768,
-        "cpu" : 5
+        "mem": "31G",
+        "cpus" : 5
     },
     "down_sample_hg":
     {
         "time" : "2:00",
-        "MaxMem": 32768,
-        "cpu" : 5
+        "mem": "31G",
+        "cpus" : 5
     },
     "call_peaks_macs2":
     {   "time" : "03:00"
@@ -116,14 +116,14 @@
     "make_bigwigs":
     {
         "time" : "03:00",
-        "MaxMem": 32768,
-        "cpu" : 5
+        "mem": "31G",
+        "cpus" : 5
     },
     "make_bigwigs_hg":
     {
         "time" : "03:00",
-        "MaxMem": 32768,
-        "cpu" : 5
+        "mem": "31G",
+        "cpus" : 5
     },
     "multiQC" :
     {
@@ -158,13 +158,13 @@
     "nucleoATAC_ctl":
     {
         "time": "12:00",
-        "MaxMem": 32768,
+        "mem": "31G",
         "cpu" : 5
     },
     "nuceoATAC_hg":
     {
         "time": "12:00",
-        "MaxMem": 32768,
+        "mem": "31G",
         "cpu" : 5
     }
 
