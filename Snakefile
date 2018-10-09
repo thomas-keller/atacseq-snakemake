@@ -73,14 +73,19 @@ RM_CHRM_ALL=RM_CHRM_CTL+RM_CHRM_CASES
 #NUCL_CTL=expand("09nucleoATAC/{control}_nucleoATAC.occpeaks.bed.gz",control=CONTROLS)
 #NUCL_ALL=NUCL_CASE+NUCL_CTL
 
+ATAQ_CTL=expand("04aln/{control}.sorted.bam,control=CONTROLS)
+ATAQ_CASES=expand("04aln/{case}.sorted.bam,control=CASES)
+
 ATAQV=["11ATAC_qc_html"]
+
+ATAQV_ALL=ATAQ_CTL+ATAQ_CASES+ATAQV
 
 print(CASES)
 print(CONTROLS)
 rule all:
     input:
 		#CONTROL_MERGED_FASTQ + CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL+FLAG_ALL+NUCL_ALL+RM_CHRM_ALL
-        ALL_SAMPLES+ CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL #+FLAG_ALL+ATAQV
+        ALL_SAMPLES+ CASE_CLEAN_HG + CASE_CLEAN_TOXO+ALN_ALL +FLAG_ALL+ATAQ_ALL
 
 CONTROL_FILES=expand('/work/t/tekeller/atac_toxo/{control}.1_val_1.fq.gz',control=CONTROLS)
 ALL_SAMPLES=expand("/work/t/tekeller/atac_toxo/{sample}.1_val_1.fq.gz",sample=SAMPLES)
