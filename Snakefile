@@ -73,8 +73,8 @@ RM_CHRM_ALL=RM_CHRM_CTL+RM_CHRM_CASES
 #NUCL_CTL=expand("09nucleoATAC/{control}_nucleoATAC.occpeaks.bed.gz",control=CONTROLS)
 #NUCL_ALL=NUCL_CASE+NUCL_CTL
 
-ATAQ_CTL=expand("04aln/{control}.sorted.bam,control=CONTROLS)
-ATAQ_CASES=expand("04aln/{case}.sorted.bam,control=CASES)
+ATAQ_CTL=expand("04aln/{control}.sorted.bam",control=CONTROLS)
+ATAQ_CASES=expand("04aln/{case}.sorted.bam",control=CASES)
 
 ATAQV=["11ATAC_qc_html"]
 
