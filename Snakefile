@@ -137,7 +137,7 @@ rule clean_fastq:
 ## so I did not cooridnate sort the bam at this step to save some time.
 rule align_cases_hg:
 	input: "03cln/{case}_clean_hg38.fq"
-	output: "04aln/{case}_hg.sorted.bam", "00log/{case}.align"
+	output: "04aln/{case}_hg.sorted.bam", "00log/{case}_hg.align"
 	params: jobname = "{case}"
 	message: "aligning {input}: {threads} threads"
 	log:
@@ -153,7 +153,7 @@ rule align_cases_hg:
 
 rule align_cases_toxo:
 	input: "/work/t/tekeller/atac_toxo/03cln/{case}_clean_ToxoDB-38_TgondiiME49_Genome.fq"
-	output: "04aln/{case}_toxo.sorted.bam", "00log/{case}.align"
+	output: "04aln/{case}_toxo.sorted.bam", "00log/{case}_toxo.align"
 	params: jobname = "{case}"
 	message: "aligning {input}: {threads} threads"
 	log:
@@ -182,6 +182,71 @@ rule align_control:
     module add apps/samtools
     module add apps/bowtie
     bowtie2 --threads 5  -X2000 -x {config[idx_bt2]} -1 {input[0]} -2 {input[1]} 2> {log.bowtie2} | samblaster 2> {log.markdup} | samtools view -Sb - > {output[0]}
+		"""
+
+
+rule flagstat_hg_bam:
+    input:  "04aln/{case}_hg.sorted.bam"
+    output: "04aln/{case}_hg.sorted.bam.flagstat"
+    log:    "00log/{case}_hg.flagstat_bam"
+    threads: 1
+    params: jobname = "{case}"
+    message: "flagstat_bam {input}: {threads} threads"
+    shell:
+        """
+        samtools flagstat {input} > {output} 2> {log}
+        """
+
+rule flagstat_toxo_bam:
+    input:  "04aln/{case}_toxo.sorted.bam"
+    output: "04aln/{case}_toxo.sorted.bam.flagstat"
+    log:    "00log/{case}_toxo.flagstat_bam"
+    threads: 1
+    params: jobname = "{case}"
+    message: "flagstat_bam {input}: {threads} threads"
+    shell:
+        """
+        samtools flagstat {input} > {output} 2> {log}
+        """
+
+rule flagstat_control_bam:
+    input:  "04aln/{control}.sorted.bam"
+    output: "04aln/{control}.sorted.bam.flagstat"
+    log:    "00log/{control}.flagstat_bam"
+    threads: 1
+    params: jobname = "{control}"
+    message: "flagstat_bam {input}: {threads} threads"
+    shell:
+        """
+        samtools flagstat {input} > {output} 2> {log}
+        """
+
+rule ataqv:
+	input: 
+		ctl="04aln/{control}.sorted.bam",
+		hum="04aln/{case}_hg.sorted.bam",
+		
+	output: "04aln/{control}.sorted.bam.ataqv.json","04aln/{case}_hg.sorted.bam.ataqv.json",
+	log: "00log/{control}_ataqv.log","00log/{case}_ataqv.log"
+	threads: 1
+	params: jobname = "{input}"
+	message: "ataqv quality control for {input}"
+	shell:
+		"""
+		~/ataqv-1.0.0/bin/ataqv human {input.ctl} --metrics-file {output[0]} 2> {log[0]}
+		~/ataqv-1.0.0/bin/ataqv human {input.hum} --metrics-file {output[1]} 2> {log[1]}
+		"""
+
+rule json_to_html:
+	input: "04aln/{control}.sorted.bam","04aln/{case}_hg.sorted.bam"
+	output: "11ATAC_qc_html"
+	log: "00log/ATAC_qc_html.log"
+	threads: 1
+	message: "compiling json files to html ATAC-seq QC"
+	shell:
+		"""
+		#source activate root
+		~/ataqv-1.0.0/bin/mkarv 11ATAC_qc_html {input}
 		"""
 
 
