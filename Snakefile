@@ -149,6 +149,7 @@ rule align_cases_hg:
 		bowtie2 = "00log/{case}_hg.align",
 		markdup = "00log/{case}_hg.markdup"
 	shell:
+		"""
 		## samblaster mark duplicates for read id grouped reads. I do not coordinate sort the bam
     module add apps/samtools
     module add apps/bowtie
