@@ -74,7 +74,7 @@ RM_CHRM_ALL=RM_CHRM_CTL+RM_CHRM_CASES
 #NUCL_ALL=NUCL_CASE+NUCL_CTL
 
 ATAQ_CTL=expand("04aln/{control}.sorted.bam",control=CONTROLS)
-ATAQ_CASES=expand("04aln/{case}.sorted.bam",control=CASES)
+ATAQ_CASES=expand("04aln/{case}.sorted.bam",case=CASES)
 
 ATAQV=["11ATAC_qc_html"]
 
