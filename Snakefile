@@ -229,13 +229,13 @@ rule flagstat_control_bam:
 rule ataqv:
 	input: 
 		ctl="04aln/{control}.sorted.bam",
-		hum="04aln/{case}_hg.sorted.bam",
+		hum="04aln/{case}_hg.sorted.bam"
 		
-	output: "04aln/{control}.sorted.bam.ataqv.json","04aln/{case}_hg.sorted.bam.ataqv.json",
+	output: "04aln/{control}.sorted.bam.ataqv.json","04aln/{case}_hg.sorted.bam.ataqv.json"
 	log: "00log/{control}_ataqv.log","00log/{case}_ataqv.log"
 	threads: 1
-	params: jobname = "{input}"
-	message: "ataqv quality control for {input}"
+	params: jobname = "..."
+	message: "ataqv quality control for ..."
 	shell:
 		"""
 		~/ataqv-1.0.0/bin/ataqv human {input.ctl} --metrics-file {output[0]} 2> {log[0]}
