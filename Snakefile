@@ -243,7 +243,7 @@ rule ataqv:
 		"""
 
 rule json_to_html:
-	input: "04aln/{control}.sorted.bam","04aln/{case}_hg.sorted.bam"
+	input: expand("04aln/{control}.sorted.bam",control=CONTROLS),expand("04aln/{case}_hg.sorted.bam",case=CASES)
 	output: "11ATAC_qc_html"
 	log: "00log/ATAC_qc_html.log"
 	threads: 1
