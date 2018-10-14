@@ -228,11 +228,11 @@ rule flagstat_control_bam:
 
 rule ataqv:
 	input: 
-		ctl="04aln/{control}.sorted.bam",
-		hum="04aln/{case}_hg.sorted.bam"
+		ctl=expand("04aln/{control}.sorted.bam",control=CONTROLS),
+		hum=expand("04aln/{case}_hg.sorted.bam",case=CASES)
 		
-	output: "04aln/{control}.sorted.bam.ataqv.json","04aln/{case}_hg.sorted.bam.ataqv.json"
-	log: "00log/{control}_ataqv.log","00log/{case}_ataqv.log"
+	output: expand("04aln/{control}.sorted.bam.ataqv.json",control=CONTROLS),expand("04aln/{case}_hg.sorted.bam.ataqv.json",case=CASES)
+	log: expand("00log/{control}_ataqv.log",control=CONTROLS),expand("00log/{case}_ataqv.log",case=CASES)
 	threads: 1
 	params: jobname = "..."
 	message: "ataqv quality control for ..."
